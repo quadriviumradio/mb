@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <title>Minibulles</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="http://code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+  <script src="https://rawgit.com/alvarotrigo/fullPage.js/master/jquery.fullPage.js"></script>
+  <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="../css/hamburger.css" >
+  <link rel="stylesheet" href="../css/normalize.css">
+  <link rel="stylesheet" href="../css/animate.css">
+  <link rel="stylesheet" href="../css/skeleton.css">
+  <script src="odechets.js"></script>
+  <link rel="stylesheet" href="../css/custom.css">
+</head>
+<body>
+
+ <div id="header" > 
+    <div class="container">
+
+ <ul id="menug">
+  
+ <li> <button class="hamburger hamburger--collapse" type="button" id="burger" >
+  <span class="hamburger-box" >
+    <span class="hamburger-inner"></span>
+  </span>
+</button>
+</li>
+ <li>
+ <a href="index.html"><img src="../img/structure/MB_logo.png" width="170"></a>
+ </li>
+</ul>
+
+
+<ul class="share-buttons">
+  <li><a href="https://www.facebook.com/sharer/sharer.php?u=&t=" title="Share on Facebook" target="_blank"><img src="../img/structure/Facebook.png"></a></li>
+  <li><a href="https://twitter.com/intent/tweet?source=&text=:%20" target="_blank" title="Tweet"><img src="../img/structure/Twitter.png"></a></li>
+  <li><a href="mailto:?subject=&body=:%20" target="_blank" title="Email"><img src="../img/structure/Email.png"></a></li>
+</ul>
+
+
+
+</div>
+</div>
+
+<div id="footer">
+    <div class="container">
+
+<ul class="apropos">
+ <li class="aproos"><a href="#">A propos</a></li>
+ <li class="aproos"><a href="#">Contact</a></li>
+</ul>
+
+<ul class="share-buttons">
+  <li><a href="https://www.facebook.com/sharer/sharer.php?u=&t=" title="Share on Facebook" target="_blank"><img src="../img/structure/arrow-down.png"></a></li>
+  <li>Lire la suite du dossier "Acheter en vrac à MTL" : <span id="artsuiv"></span></li>
+</ul>
+
+
+
+</div>
+</div>
+
+<div class="container" id="menudingo">
+<br/>
+<div class="row"> <div class="twelve columns"></div><h2 class="hero-heading" id="titre">Nos catégories :</h2></div>
+  <div class="row" id="adresses-vign">
+    <div class="four columns" id="blocad">
+      <div class="row">
+      <div class="one-half column"><a href="#first/slide2"><img src="../img/illustration/massage.png" ></a></div>
+	  <div class="one-half column"><strong>Gourmandises</strong> bien manger au resto ou à la maison</div>
+	</div>
+	</div>
+	
+    <div class="four columns" id="blocad">
+      <div class="row">
+      <div class="one-half column"><a href="#first/slide3"><img src="../img/illustration/massage.png" ></a></div>
+	  <div class="one-half column"><strong>Décoration</strong> décorer sa maison en s'insipirant</div>
+	</div>
+	</div>
+	
+    <div class="four columns" id="blocad">
+      <div class="row">
+      <div class="one-half column"><a href="#first/slide4"><img src="../img/illustration/massage.png" ></a></div>
+	  <div class="one-half column"><strong>Kiné-Concept</strong> pour se faire masser</div>
+	</div>
+	</div>
+  </div>
+</div>
+
+
+
+<div id="fullpage">
+
+<script>
+
+    var clicmenu = 0;
+
+// fonction pour cacher le menu appelé par le callback du slide du menu  
+  function menucache(){
+  $(".section" ).toggle();
+
+// On crée une variable pour savoir si on est dans le menu.
+  clicmenu += 1;
+  
+// Si le chiffre est impair, on bloque la navigation. Sinon on la réactive  
+  if (clicmenu % 2 > 0){
+  $.fn.fullpage.setAllowScrolling(false);}
+  else {$.fn.fullpage.setAllowScrolling(true)};
+ }
+
+  if(document.body.clientWidth > 480){
+
+  document.write('<link rel="stylesheet" type="text/css" href="../jquery.fullPage.css" />');
+  $(document).ready(function() {
+    $('#fullpage').fullpage({verticalCentered:false, navigation: true, controlArrows: true,scrollingSpeed: 1000, loopHorizontal: true, anchors:[articles[0].id, 'second', 'third'],        
+	
+  // Section pour gérer l'affichage de l'article suivant dans le bas de page
+  afterLoad: function(index, anchorLink){
+    document.getElementById("artsuiv").innerHTML = articles[anchorLink].titre  ;
+    },
+  // Section pour gérer l'affichage des blocs selon la page pour le menu
+	onLeave: function(index, nextIndex, direction){
+    
+            var leavingSection = $(this);
+
+			// quand on quitte la page 1
+            if(index == 1 && direction =='down'){
+                $("#art0").slideToggle("slow", "linear");
+				$("#art1").show();
+			}
+			
+            // quand on quitte la page 2 vers le bas
+            if(index == 2 && direction =='down'){
+                $("#art0").slideToggle("slow", "linear");
+				$("#art1").slideToggle("slow", "linear");
+            }
+			
+			// quand on quitte la page 2 vers le haut
+            if(index == 2 && direction =='up'){
+                $("#art0").show();
+
+            }
+
+			// quand on quitte la page 3 vers le haut
+            if(index == 3 && direction =='up'){
+			    $("#art0").slideToggle("slow", "linear");
+                $("#art1").show();
+            }
+			
+        }});
+	$(".button").hide()
+	$( "#burger" ).click(function() {
+    $( "#menudingo" ).slideToggle("slow", "linear", menucache());
+  });
+	});
+  }
+  else {
+   $(document).ready(function() {
+   alert("mode mobile")}
+  )};
+  for (var art in articles){
+  document.write('<div class="section" id="contenu">');
+
+  switch (articles[art].type)
+  {//On gère le cas du mono-adresse
+  case 1:
+  document.write('<div class="slide" data-anchor="slide1" id="art'+ art +'">');
+  document.write('<div class="container"><div class="row"><div class="one-half column">');
+  document.write('<img src="' + articles[art].img + '"class="u-max-full-width"/>');
+  document.write('<div id="pretag">')
+  for(var prop in articles[art].tags){document.write('<span id="tag">#' + articles[art].tags[prop] +'</span>')}
+  document.write('</div>')  
+  document.write('<div class="row"><div class="one-half column"><img src="../img/structure/carte.png" id="carte" class="u-max-full-width"></div><div class="one-half column" id="adresse"><b><i class="fa fa-map-marker" aria-hidden="true"></i>  L\'adresse</b><br/>');
+  document.write(articles[art].adresse + '<br/>');
+  document.write(articles[art].ville + '<br/><b><i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;&nbsp;<a href="' + articles[art].lien + '" target="_blank">Sur le web</a></b>');
+  document.write('</div></div></div>');
+  document.write('<div class="one-half column">');
+  document.write('<p id="date" class="animated fadeInDown">Infolettre du '+ articles[art].date +'<span id="tag" class="animated slideInRight">GOURMANDISES</span></p>');
+  document.write('<h2 class="hero-heading" id="titre">' + articles[art].titre + '</h2>');
+  document.write('<p class="value-description" id="textinfolettre">' + articles[art].texte + '</p>');
+  document.write('<div class="twelve columns" id="signature"><img src="../img/structure/gabrielle.png" class="animated slideInRight"></div>');
+  document.write('</div></div></div></div></div>');
+  break;
+  //On gère le cas du multi-adresses
+  case 2:
+  document.write('<div class="slide" data-anchor="slide1" id="art'+ art +'">');
+  document.write('<div class="container"><div class="row"><div class="one-half column">');
+  document.write('<p id="date" class="animated fadeInDown">Infolettre du '+ articles[art].date +'<span id="tag" class="animated slideInRight">#GOURMANDISES</span></p>');
+  document.write('<h2 class="hero-heading" id="titre">' + articles[art].titre + '</h2>');
+  document.write('<p class="intro">' + articles[art].chapo + '</p>');
+  document.write('</div>');
+  document.write('<div class="one-half column">');
+  document.write('<img src="' + articles[art].img + '"class="u-max-full-width"/>');
+  document.write('</div></div>');
+  document.write('<div class="row" id="adresses-vign">');
+  //On dimensionne la page chapo en fonction du nombre d'adresses (3 ou 4)
+  if (articles[art].nbadresses == 4){
+  for (i = 0 ; i < articles[art].nbadresses; i++){
+  f = i + 2 ;
+  document.write('<div class="three columns" id="blocad">');
+  document.write('<div class="row">');
+  document.write('<div class="one-half column"><a href="' + document.URL + '/slide' + f +'"><img src="' + articles[art].chapoimg + '" ></a></div>');
+  document.write('<div class="one-half column"><strong>' + articles[art].adresses[i].titre + '</strong><br/>' + articles[art].adresses[i].chapo +  '</div>');
+  document.write('</div></div>');
+  }}
+  else {
+  for (i = 0 ; i < articles[art].nbadresses; i++){
+  f = i + 2 ;
+  var urlactuelle =  
+  document.write('<div class="four columns" id="blocad">');
+  document.write('<div class="row">');
+  document.write('<div class="one-half column"><a href="slide' + f +'"><img src="' + articles[art].chapoimg + '" ></a></div>');
+  document.write('<div class="one-half column"><strong>' + articles[art].adresses[i].titre + '</strong><br/>' + articles[art].adresses[i].chapo +  '</div>');
+  document.write('</div></div>');
+  }
+  };
+  document.write('</div></div></div>');
+  //On génère les pages de chaque adresse
+  for (g = 0 ; g < articles[art].nbadresses; g++){
+  v = g + 1 ;
+  document.write('<div class="slide" data-anchor="slide'+ v +'" id="ad'+ v +'">');
+  document.write('<div class="container"><div class="row"><div class="one-half column">');
+  document.write('<img src="' + articles[art].adresses[g].img + '"');
+  document.write('class="u-max-full-width"/>');
+  document.write('</div>');
+  document.write('<div class="one-half column">');
+  document.write('<p id="date" class="animated fadeInDown">Infolettre du '+ articles[art].date +'<span id="tag" class="animated slideInRight">#GOURMANDISES</span></p>');
+  document.write('<h2 class="hero-heading" id="titre">' + v + '/' + articles[art].nbadresses + '&nbsp;' + articles[art].adresses[g].titre + '</h2>');
+  document.write('<p class="value-description" id="textinfolettre">' + articles[art].adresses[g].texte + '</p>');
+  document.write('<div class="row"><div class="one-half column"><img src="../img/structure/carte.png" id="carte" class="u-max-full-width"></div><div class="one-half column" id="adresse"><b><i class="fa fa-map-marker" aria-hidden="true"></i>  L\'adresse</b><br/>');
+  document.write(articles[art].adresses[g].adresse + '<br/>');
+  document.write(articles[art].adresses[g].ville + '<br/><b><i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;&nbsp;<a href="' + articles[art].lien + '" target="_blank">Sur le web</a></b>');
+  document.write('</div></div>');
+  document.write('</div></div></div></div>');
+  };
+  //On ferme la section du multiadresse
+  document.write('</div>');
+  break;
+  case 3:
+  document.write('<div class="slide" data-anchor="slide1" id="art'+ art +'">');
+  document.write('<div class="container">');
+  document.write('<div class="row"><div class="one-half column">');
+  document.write('<img src="' + articles[art].img + '"class="u-max-full-width"/>');
+  document.write('<div id="pretag">')
+  for(var prop in articles[art].tags){document.write('<span id="tag">#' + articles[art].tags[prop] +'</span>')}
+  document.write('</div>')  
+  document.write('</div>');
+  document.write('<div class="one-half column">');
+  document.write('<p id="date" class="animated fadeInDown">Infolettre du '+ articles[art].date +'<span id="tag" class="animated slideInRight">GOURMANDISES</span></p>');
+  document.write('<h2 class="hero-heading" id="titre">' + articles[art].titre + '</h2>');
+  document.write('<p class="intro" id="textinfolettre">' + articles[art].chapo + '</p>');
+  document.write('<div class="twelve columns" id="signature"><img src="../img/structure/gabrielle.png" class="animated slideInRight"></div>');
+  document.write('</div></div></div></div></div>');
+  break;
+  case 4:
+  document.write('<div class="slide" data-anchor="slide1" id="art'+ art +'">');
+  document.write('<div class="container">');
+  document.write('<div class="row"><div class="one-half column">');
+  document.write('<img src="' + articles[art].img + '"class="u-max-full-width"/>');
+  document.write('</div>');
+  document.write('<div class="one-half column">');
+  document.write('<p id="date" class="animated fadeInDown">Infolettre du '+ articles[art].date +'<span id="tag" class="animated slideInRight">GOURMANDISES</span></p>');
+  document.write('<h2 class="hero-heading" id="titre">' + articles[art].titre + '</h2>');
+  document.write('<p class="value-description" id="textinfolettre">' + articles[art].texte + '</p>');
+  document.write('</div></div></div></div></div>');
+  break;
+  case 5:
+  document.write('<div class="slide" data-anchor="slide1" id="art'+ art +'">');
+  document.write('<div class="container">');
+  document.write('<h2 class="hero-heading" id="titre">' + articles[art].titre + '</h2>');
+  document.write('<h5>' + articles[art].chapo + '</h5>');
+  document.write('<div class="row"><div class="two columns">');
+  document.write('<img src="' + articles[art].img + '"class="u-max-full-width"/>');
+  document.write('</div>');
+  document.write('<div class="ten columns">');
+  document.write('<p class="bulle">' + articles[art].texte + '</p>');
+  document.write('</div>');
+  document.write('</div></div></div></div>');
+  break;
+  // comme un mono-adresse mais inclus dans un magazine
+  case 6:
+  document.write('<div class="slide" data-anchor="slide1" id="art'+ art +'">');
+  document.write('<div class="container"><div class="row"><div class="one-half column">');
+  document.write('<img src="' + articles[art].img + '"class="u-max-full-width"/>');
+  document.write('<div id="pretag">')
+  for(var prop in articles[art].tags){document.write('<span id="tag">#' + articles[art].tags[prop] +'</span>')}
+  document.write('</div>')  
+  document.write('<div class="row"><div class="one-half column"><img src="../img/structure/carte.png" id="carte" class="u-max-full-width"></div><div class="one-half column" id="adresse"><b><i class="fa fa-map-marker" aria-hidden="true"></i>  L\'adresse</b><br/>');
+  document.write(articles[art].adresse + '<br/>');
+  document.write(articles[art].ville + '<br/><b><i class="fa fa-external-link" aria-hidden="true"></i>&nbsp;&nbsp;<a href="' + articles[art].lien + '" target="_blank">Sur le web</a></b>');
+  document.write('</div></div></div>');
+  document.write('<div class="one-half column">');
+  document.write('<h2 class="hero-heading" id="titre" style="background-color: #ffff99;"">' + articles[art].titre + '</h2>');
+  document.write('<h5>' + articles[art].chapo + '</h5>');
+  document.write('<p class="value-description" id="textinfolettre">' + articles[art].texte + '</p>');
+  document.write('</div></div></div></div></div>');
+  break;
+  };
+  }
+  </script>
+</body>
+</html>
+
+
